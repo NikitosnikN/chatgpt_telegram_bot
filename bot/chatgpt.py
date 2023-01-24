@@ -1,8 +1,8 @@
+import openai
+
 import config
 
-import openai
 openai.api_key = config.openai_api_key
-
 
 CHAT_MODES = {
     "assistant": {
@@ -28,8 +28,10 @@ CHAT_MODES = {
 class ChatGPT:
     def __init__(self):
         pass
-    
-    def send_message(self, message, dialog_messages=[], chat_mode="assistant"):
+
+    def send_message(self, message: str, dialog_messages: list = None, chat_mode="assistant"):
+        dialog_messages = dialog_messages or []
+
         if chat_mode not in CHAT_MODES.keys():
             raise ValueError(f"Chat mode {chat_mode} is not supported")
 
@@ -54,7 +56,9 @@ class ChatGPT:
 
             except openai.error.InvalidRequestError as e:  # too many tokens
                 if len(dialog_messages) == 0:
-                    raise ValueError("Dialog messages is reduced to zero, but still has too many tokens to make completion") from e
+                    raise ValueError(
+                        "Dialog messages is reduced to zero, but still has too many tokens to make completion"
+                    ) from e
 
                 # forget first message in dialog_messages
                 dialog_messages = dialog_messages[1:]
@@ -63,7 +67,7 @@ class ChatGPT:
 
         return answer, prompt, n_used_tokens, n_first_dialog_messages_removed
 
-    def _generate_prompt(self, message, dialog_messages, chat_mode):
+    def _generate_prompt(self, message: str, dialog_messages: list, chat_mode: str):
         prompt = CHAT_MODES[chat_mode]["prompt_start"]
         prompt += "\n\n"
 

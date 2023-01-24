@@ -1,0 +1,6 @@
+telegram_token: {{ .Values.config.telegramToken | quote }}
+openai_api_key: {{ .Values.config.openaiApiToken | quote }}
+allowed_telegram_usernames: {{ .Values.config.allowedTelegramUsernames | toYaml }}
+new_dialog_timeout: {{ .Values.config.newDialogTimeout | quote }}
+mongodb_uri: {{ include "chatgpt-tg-bot.mongodbUri" . | quote }}
+mongodb_db_name: {{ .Values.config.mongodbDatabase | quote }}

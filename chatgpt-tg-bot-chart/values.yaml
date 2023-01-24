@@ -1,0 +1,51 @@
+replicaCount: 1
+
+config:
+  telegramToken: ""
+  openaiApiToken: ""
+  allowedTelegramUsernames: [ ] # if empty, the bot is available to anyone
+  newDialogTimeout: 600 # new dialog starts after timeout (in seconds)
+  mongodbDatabase: "chatgpt_telegram_bot"
+  mongodbUriOverride: ""
+
+image:
+  repository: nikitosnik/chatgpt-tg-bot
+  pullPolicy: IfNotPresent
+  tag: v0.3
+
+imagePullSecrets: [ ]
+nameOverride: ""
+fullnameOverride: ""
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+
+podAnnotations: { }
+podSecurityContext: { }
+securityContext: { }
+nodeSelector: { }
+tolerations: [ ]
+affinity: { }
+
+mongodb:
+  auth:
+    enabled: false
+    rootUser: "root"
+    rootPassword: "" # insert here secure password
+
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+
+  persistence:
+    size: 10Gi

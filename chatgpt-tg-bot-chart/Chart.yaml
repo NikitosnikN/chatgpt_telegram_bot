@@ -1,0 +1,10 @@
+apiVersion: v2
+name: chatgpt-tg-bot
+description: A Helm chart for chatgp
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+dependencies:
+  - name: mongodb
+    version: 13.6.3
+    repository: "https://charts.bitnami.com/bitnami"
